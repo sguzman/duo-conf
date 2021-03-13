@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0cserver.proto\"\x16\n\x07\x43onfKey\x12\x0b\n\x03key\x18\x01 \x01(\t\"\x1a\n\tConfValue\x12\r\n\x05value\x18\x01 \x01(\t2(\n\x04\x43onf\x12 \n\x06GetKey\x12\x08.ConfKey\x1a\n.ConfValue\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0cserver.proto\"\x16\n\x07\x43onfKey\x12\x0b\n\x03key\x18\x01 \x01(\t\"\x1a\n\tConfValue\x12\r\n\x05value\x18\x01 \x01(\t\"*\n\x0c\x43onfKeyValue\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x11\n\x03\x41\x63k\x12\n\n\x02ok\x18\x01 \x01(\x08\x32I\n\x04\x43onf\x12 \n\x06GetKey\x12\x08.ConfKey\x1a\n.ConfValue\"\x00\x12\x1f\n\x06SetKey\x12\r.ConfKeyValue\x1a\x04.Ack\"\x00\x62\x06proto3'
 )
 
 
@@ -88,8 +88,81 @@ _CONFVALUE = _descriptor.Descriptor(
   serialized_end=66,
 )
 
+
+_CONFKEYVALUE = _descriptor.Descriptor(
+  name='ConfKeyValue',
+  full_name='ConfKeyValue',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='ConfKeyValue.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='ConfKeyValue.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=68,
+  serialized_end=110,
+)
+
+
+_ACK = _descriptor.Descriptor(
+  name='Ack',
+  full_name='Ack',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ok', full_name='Ack.ok', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=112,
+  serialized_end=129,
+)
+
 DESCRIPTOR.message_types_by_name['ConfKey'] = _CONFKEY
 DESCRIPTOR.message_types_by_name['ConfValue'] = _CONFVALUE
+DESCRIPTOR.message_types_by_name['ConfKeyValue'] = _CONFKEYVALUE
+DESCRIPTOR.message_types_by_name['Ack'] = _ACK
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ConfKey = _reflection.GeneratedProtocolMessageType('ConfKey', (_message.Message,), {
@@ -106,6 +179,20 @@ ConfValue = _reflection.GeneratedProtocolMessageType('ConfValue', (_message.Mess
   })
 _sym_db.RegisterMessage(ConfValue)
 
+ConfKeyValue = _reflection.GeneratedProtocolMessageType('ConfKeyValue', (_message.Message,), {
+  'DESCRIPTOR' : _CONFKEYVALUE,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:ConfKeyValue)
+  })
+_sym_db.RegisterMessage(ConfKeyValue)
+
+Ack = _reflection.GeneratedProtocolMessageType('Ack', (_message.Message,), {
+  'DESCRIPTOR' : _ACK,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:Ack)
+  })
+_sym_db.RegisterMessage(Ack)
+
 
 
 _CONF = _descriptor.ServiceDescriptor(
@@ -115,8 +202,8 @@ _CONF = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=68,
-  serialized_end=108,
+  serialized_start=131,
+  serialized_end=204,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetKey',
@@ -125,6 +212,16 @@ _CONF = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CONFKEY,
     output_type=_CONFVALUE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SetKey',
+    full_name='Conf.SetKey',
+    index=1,
+    containing_service=None,
+    input_type=_CONFKEYVALUE,
+    output_type=_ACK,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
