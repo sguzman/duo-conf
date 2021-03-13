@@ -53,7 +53,7 @@ def init_server() -> None:
 class Server(server_pb2_grpc.ConfServicer):
     def GetKey(self, request, context):
         key: str = request.key
-        loggin.info('Got request for key %s', key)
+        logging.info('Got request for key %s', key)
         value: str = cache.get(key)
 
         return server_pb2.ConfValue(value=value)
@@ -63,8 +63,8 @@ class Server(server_pb2_grpc.ConfServicer):
         value: str = request.value
         logging.info('Set key "%s" to "%s"', key, value)
 
-        cache[key] = valuej
-        return server_pb2.Ack(ok=true)
+        cache[key] = value
+        return server_pb2.Ack(ok=True)
 
 
 def init() -> None:
