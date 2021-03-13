@@ -4,12 +4,15 @@ import concurrent.futures as futures
 import grpc
 import logging
 import os
+import typing
+from typing import Dict
 
 import server_pb2
 import server_pb2_grpc
 
 
 port: str = None
+cache: Dict[str, str] = {}
 
 
 def init_env() -> None:
@@ -35,10 +38,32 @@ def init_logging() -> None:
     logging.info('hi')
 
 
+def init_server() -> None:
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
+    server_pb2_grpc.add_ConfServicer_to_server(Server(), server)
+    server.add_insecure_port(f'localhost:{port}')
+
+    server.start()
+    logging.info('Started server at %s', port)
+    server.wait_for_termination()
+
+    logging.info('Ending server')
+
+
+class Server(server_pb2_grpc.ConfServicer):
+    def GetKey(self, request, context):
+        key: str = request.key
+        loggin.info('Got request for key %s', key)
+        value: str = cache.get(key)
+
+        return server_pb2.ConfValue(value=value)
+
+
 def init() -> None:
     init_logging()
     init_atexit()
     init_env()
+    init_server()
 
 
 def main() -> None:
