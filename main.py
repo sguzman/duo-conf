@@ -58,6 +58,14 @@ class Server(server_pb2_grpc.ConfServicer):
 
         return server_pb2.ConfValue(value=value)
 
+    def SetKey(self, request, context):
+        key: str = request.key
+        value: str = request.value
+        logging.info('Set key "%s" to "%s"', key, value)
+
+        cache[key] = valuej
+        return server_pb2.Ack(ok=true)
+
 
 def init() -> None:
     init_logging()
